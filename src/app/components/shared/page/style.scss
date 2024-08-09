@@ -1,0 +1,13 @@
+$header-height: 80px;
+$footer-height: 32px;
+
+.page {
+  min-height: 100vh;
+
+  &.with-header {
+    min-height: calc(100vh - $header-height);
+  }
+  &.with-footer {
+    min-height: calc(100vh - $footer-height);
+  }
+}
