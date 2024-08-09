@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Repository } from '../../../@types';
+import { Data } from '../../../@types';
 
 import { getRepos } from './repos.thunk';
 
 export interface ReposState {
-  reposList?: Repository[];
+  reposList?: Data[];
   reposLoading: boolean;
   reposError?: undefined | string;
 }
