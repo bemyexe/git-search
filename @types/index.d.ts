@@ -1,4 +1,9 @@
-export interface Repository {
+export type Repository = Pick<
+  Data,
+  'id' | 'name' | 'updated_at' | 'forks_count' | 'language' | 'stargazers_count'
+>;
+
+export interface Data {
   id: number;
   node_id: string;
   name: string;
