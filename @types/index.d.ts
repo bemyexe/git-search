@@ -103,7 +103,7 @@ interface User {
   site_admin: boolean;
 }
 
-interface License {
+export interface License {
   key: string;
   name: string;
   url: string;
