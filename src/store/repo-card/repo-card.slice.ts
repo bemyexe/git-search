@@ -4,12 +4,14 @@ import { Data } from '../../../@types';
 
 export interface RepoCardState {
   repoCard?: Data;
+  isRepoChosen?: boolean;
 }
 
 const REPO_CARD_SLICE_NAME = 'repo-card-state';
 
 const INITIAL_REPO_CARD_STATE: RepoCardState = {
   repoCard: undefined,
+  isRepoChosen: false,
 };
 
 const repoCardSlice = createSlice({
@@ -18,6 +20,7 @@ const repoCardSlice = createSlice({
   reducers: {
     setRepoCardValue(state, { payload }) {
       state.repoCard = payload;
+      state.isRepoChosen = true;
     },
   },
 });

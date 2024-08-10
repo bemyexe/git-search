@@ -4,14 +4,19 @@ import { RootState } from '..';
 
 import { RepoCardState } from './repo-card.slice';
 
-const selectFilterState: (state: RootState) => RepoCardState = (state) =>
+const selectRepoCardState: (state: RootState) => RepoCardState = (state) =>
   state.repoCardState;
 
 const selectRepoCard = createSelector(
-  selectFilterState,
+  selectRepoCardState,
   (state) => state.repoCard
 );
+const selectisRepoChosen = createSelector(
+  selectRepoCardState,
+  (state) => state.isRepoChosen
+);
 
-export const filterSelectors = {
+export const repoCardSelectors = {
   selectRepoCard,
+  selectisRepoChosen,
 };
