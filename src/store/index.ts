@@ -1,11 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
+import { filterReducer } from './filter/filter.slice';
+import { repoCardReducer } from './repo-card/repo-card.slice';
 import { reposReducer } from './repos/repos.slice';
 
 export const store = configureStore({
   reducer: {
     reposState: reposReducer,
+    filterState: filterReducer,
+    repoCardState: repoCardReducer,
   },
 });
 

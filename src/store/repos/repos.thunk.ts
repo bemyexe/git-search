@@ -8,7 +8,6 @@ export const getRepos = createAppAsyncThunk(
       query: string;
       page: number;
       per_page: number;
-      sort: string;
       order: string;
     },
     { rejectWithValue }
@@ -18,7 +17,6 @@ export const getRepos = createAppAsyncThunk(
         params.query,
         params.page,
         params.per_page,
-        params.sort,
         params.order
       );
       return response;

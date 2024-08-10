@@ -4,20 +4,20 @@ import { RootState } from '..';
 
 import { ReposState } from './repos.slice';
 
-const selectUsersState: (state: RootState) => ReposState = (state) =>
+const selecReposState: (state: RootState) => ReposState = (state) =>
   state.reposState;
 
 const selectReposList = createSelector(
-  selectUsersState,
+  selecReposState,
   (state) => state.reposList
 );
 
 const selectReposLoading = createSelector(
-  selectUsersState,
+  selecReposState,
   (state) => state.reposLoading
 );
 const selectReposError = createSelector(
-  selectUsersState,
+  selecReposState,
   (state) => state.reposError
 );
 
