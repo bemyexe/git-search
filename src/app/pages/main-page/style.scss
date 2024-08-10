@@ -1,0 +1,10 @@
+.main-page {
+  padding: 24px 16px 24px 32px;
+  .main-page-container {
+    display: flex;
+
+    .main-page-table {
+      max-width: 950px;
+    }
+  }
+}

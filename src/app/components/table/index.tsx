@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Paper } from '@mui/material';
 import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,11 +10,15 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 import { Repository } from '../../../../@types';
-import { useAppDispatch } from '../../../store';
 import { reposSelectors } from '../../../store/repos/repos.selectors';
-import { getRepos } from '../../../store/repos/repos.thunk';
 
 import { EnhancedTableHead } from './enhanced-table-head';
+import { useAppDispatch } from '../../../store';
+import { filterSelectors } from '../../../store/filter/filter.selectors';
+import {
+  setPageValue,
+  setPerPageValue,
+} from '../../../store/filter/filter.slice';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -56,13 +59,21 @@ function stableSort<T>(
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function EnhancedTable() {
+interface EnhancedTable {
+  className: string;
+}
+
+export const EnhancedTable = ({ className }: EnhancedTable) => {
+  const dispatch = useAppDispatch();
+
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Repository>('name');
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  // const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const search = useSelector(reposSelectors.selectReposList);
+
+  const page = useSelector(filterSelectors.selectPageValue);
+  const rowsPerPage = useSelector(filterSelectors.selectPerPageValue);
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Repository
@@ -72,63 +83,48 @@ export default function EnhancedTable() {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = search ? search.map((n) => n.id) : [];
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
   const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
+    dispatch(setPageValue(newPage));
   };
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    dispatch(setPerPageValue(parseInt(event.target.value, 10)));
+    dispatch(setPageValue(0));
   };
-
-  const isSelected = (id: number) => selected.indexOf(id) !== -1;
-
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     search && page > 0
       ? Math.max(0, (1 + page) * rowsPerPage - search.length)
       : 0;
 
-  // const visibleRows = React.useMemo(
-  //   () => search &&
-  //     stableSort(search as Repository[], getComparator(order, orderBy)).slice(
-  //       page * rowsPerPage,
-  //       page * rowsPerPage + rowsPerPage
-  //     ),
-  //   [order, orderBy, page, rowsPerPage, search]
-  // );
+  const visibleRows = React.useMemo(
+    () =>
+      search &&
+      stableSort(search as Repository[], getComparator(order, orderBy)).slice(
+        page * rowsPerPage,
+        page * rowsPerPage + rowsPerPage
+      ),
+    [order, orderBy, page, rowsPerPage, search]
+  );
   const load = useSelector(reposSelectors.selectReposLoading);
   if (load) {
     return <div>loading</div>;
   }
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box className={className} sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={search && search.length}
             />
             <TableBody>
-              {search?.map((row, index) => {
-                const isItemSelected = isSelected(row.id);
+              {visibleRows?.map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
@@ -137,7 +133,6 @@ export default function EnhancedTable() {
                     onClick={(event) => (event, row.id)}
                     tabIndex={-1}
                     key={row.id}
-                    selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
                     <TableCell component="th" id={labelId} scope="row">
@@ -165,7 +160,7 @@ export default function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={search && search.length}
+          count={search?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -174,4 +169,4 @@ export default function EnhancedTable() {
       </Paper>
     </Box>
   );
-}
+};

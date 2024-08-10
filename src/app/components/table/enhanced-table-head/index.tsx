@@ -11,7 +11,6 @@ import { Repository } from '../../../../../@types';
 
 import { headCells } from './head-cells';
 
-type Order = 'asc' | 'desc';
 interface EnhancedTableProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -21,8 +20,11 @@ interface EnhancedTableProps {
   orderBy: string;
 }
 
-export function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, onRequestSort } = props;
+export const EnhancedTableHead = ({
+  order,
+  orderBy,
+  onRequestSort,
+}: EnhancedTableProps) => {
   const createSortHandler =
     (property: keyof Repository) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -53,4 +55,4 @@ export function EnhancedTableHead(props: EnhancedTableProps) {
       </TableRow>
     </TableHead>
   );
-}
+};
