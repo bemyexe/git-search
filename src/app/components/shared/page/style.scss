@@ -10,4 +10,7 @@ $footer-height: 32px;
   &.with-footer {
     min-height: calc(100vh - $footer-height);
   }
+  &.with-header.with-footer {
+    min-height: calc(100vh - $header-height - $footer-height);
+  }
 }
