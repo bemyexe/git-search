@@ -5,11 +5,12 @@ import {
   TableRow,
   TableSortLabel,
 } from '@mui/material';
-import { visuallyHidden } from '@mui/utils';
 
 import { Repository } from '../../../../../@types';
 
 import { headCells } from './head-cells';
+
+import './style.scss';
 
 interface EnhancedTableProps {
   onRequestSort: (
@@ -45,7 +46,7 @@ export const EnhancedTableHead = ({
             >
               {headCell.label}
               {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
+                <Box className="table-head-sort" component="span">
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>
               ) : null}
