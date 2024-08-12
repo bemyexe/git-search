@@ -22,8 +22,14 @@ const selectPerPageValue = createSelector(
   (state) => state.per_page
 );
 
+const selectOrderValue = createSelector(
+  selectFilterState,
+  (state) => state.order
+);
+
 export const filterSelectors = {
   selectSearchValue,
   selectPageValue,
   selectPerPageValue,
+  selectOrderValue,
 };

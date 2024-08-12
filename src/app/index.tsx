@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Box } from '@mui/material';
 
 import { useAppDispatch } from '../store';
 import { filterSelectors } from '../store/filter/filter.selectors';
@@ -9,38 +10,35 @@ import { getRepos } from '../store/repos/repos.thunk';
 import { MainPage } from './pages/main-page';
 import { Header } from './components';
 
+import './style.scss';
+
 export const App = () => {
-  const load = useSelector(reposSelectors.selectReposLoading);
   const error = useSelector(reposSelectors.selectReposError);
   const search = useSelector(reposSelectors.selectReposList);
   const searchValue = useSelector(filterSelectors.selectSearchValue);
   const page = useSelector(filterSelectors.selectPageValue);
   const per_page = useSelector(filterSelectors.selectPerPageValue);
+  const order = useSelector(filterSelectors.selectOrderValue);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(
       getRepos({
-        query: 'Q' + searchValue,
+        query: searchValue,
         page: page,
-        per_page: 30,
-        order: 'desc',
+        per_page: per_page,
+        order: order,
       })
     );
-  }, [dispatch, searchValue, page, per_page]);
+  }, [dispatch, searchValue, page, per_page, order]);
   console.log(search);
-  if (load) {
-    return <div>loading</div>;
-  }
-
-  if (error) {
-    return <div>error</div>;
-  }
   return (
     <>
       <Header />
       <MainPage />
+      <Box component="footer" className="footer" />
+      {error && <h1>{error}</h1>}
     </>
   );
 };

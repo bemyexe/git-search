@@ -14,8 +14,8 @@ const INITIAL_FILTER_STATE: FilterState = {
   searchValue: '',
   page: 0,
   per_page: 5,
-  sort: 'best match',
-  order: 'desc',
+  sort: 'bestmatch',
+  order: 'asc',
 };
 
 const filterSlice = createSlice({
@@ -31,10 +31,13 @@ const filterSlice = createSlice({
     setPerPageValue(state, { payload }) {
       state.per_page = payload;
     },
+    setOrderValue(state, { payload }) {
+      state.order = payload;
+    },
   },
 });
 
-export const { setSearchValue, setPageValue, setPerPageValue } =
+export const { setSearchValue, setPageValue, setPerPageValue, setOrderValue } =
   filterSlice.actions;
 
 export const filterReducer = filterSlice.reducer;
