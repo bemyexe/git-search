@@ -6,8 +6,11 @@
   width: 100%;
 
   .search-panel__input {
-    background-color: white;
+    background-color: var(--white);
     border-radius: 4px;
-    font-style: italic;
   }
+}
+
+.search-panel__input ::placeholder {
+  font-style: italic;
 }
