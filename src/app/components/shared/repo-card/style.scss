@@ -3,25 +3,40 @@
 
   padding: 24px;
 
-  height: calc(100vh - 80px);
+  min-height: calc(100vh - 80px - 32px);
 
   max-width: 480px;
   width: 100%;
 
-  background: var(--card-bg);
+  background: var(--grayLight);
 
   position: sticky;
   top: 0px;
+
   .repo-card-container {
     display: flex;
     flex-direction: column;
     align-items: start;
+
     gap: 20px;
+
+    .repo-card-description {
+      height: auto;
+      & .MuiChip-label {
+        display: block;
+        white-space: normal;
+        padding: 10px;
+      }
+    }
   }
 
-  .no-repo {
-    color: var(--card-no-repo);
-    position: absolute;
-    top: 50%;
+  .no-chosen-repo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    color: var(--grayDark);
   }
 }

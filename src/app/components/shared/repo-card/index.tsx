@@ -15,24 +15,16 @@ export const RepoCard = () => {
           <Typography variant="h4">Название репозитория</Typography>
           <Chip label={card?.name} color="primary" />
           {!!card?.description && (
-            <Chip
-              label={card?.description}
-              sx={{
-                height: 'auto',
-                '& .MuiChip-label': {
-                  display: 'block',
-                  whiteSpace: 'normal',
-                  padding: '10px',
-                },
-              }}
-            />
+            <Chip className="repo-card-description" label={card?.description} />
           )}
           {!!card?.license?.name && (
             <Typography variant="caption">{card?.license?.name}</Typography>
           )}
         </Box>
       ) : (
-        <Typography className="no-repo">Выберите репоризотрий</Typography>
+        <Box className="no-chosen-repo">
+          <Typography>Выберите репоризотрий</Typography>
+        </Box>
       )}
     </Box>
   );
