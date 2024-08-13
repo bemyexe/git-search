@@ -1,11 +1,4 @@
-import {
-  Box,
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-} from '@mui/material';
-import { visuallyHidden } from '@mui/utils';
+import { TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
 
 import { headCells } from './head-cells';
 
@@ -23,9 +16,7 @@ export const EnhancedTableHead = ({
   const createSortHandler =
     (property: Sort) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
-      console.log(property);
     };
-  console.log(orderBy);
 
   return (
     <TableHead>
@@ -41,11 +32,6 @@ export const EnhancedTableHead = ({
               onClick={createSortHandler(headCell.sortQuery as Sort)}
             >
               {headCell.label}
-              {orderBy === headCell.sortQuery ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
             </TableSortLabel>
           </TableCell>
         ))}
