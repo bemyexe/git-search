@@ -1,27 +1,17 @@
-import { getRepositories } from '../../api/search/repositories';
+import {
+  getRepositories,
+  QueryRepositoriesParams,
+} from '../../api/search/repositories';
 import { createAppAsyncThunk } from '../../helpers/create-thunk';
 
 export const getRepos = createAppAsyncThunk(
   'repos/getRepos',
-  async (
-    params: {
-      query: string;
-      page: number;
-      per_page: number;
-      order: string;
-    },
-    { rejectWithValue }
-  ) => {
+  async (params: QueryRepositoriesParams, { rejectWithValue }) => {
     try {
-      const response = await getRepositories(
-        params.query,
-        params.page,
-        params.per_page,
-        params.order
-      );
+      const response = await getRepositories(params);
       return response;
     } catch (error: any) {
-      return rejectWithValue(error.response.status);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );

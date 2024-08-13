@@ -9,7 +9,12 @@ const selecReposState: (state: RootState) => ReposState = (state) =>
 
 const selectReposList = createSelector(
   selecReposState,
-  (state) => state.reposList
+  (state) => state.reposRespone?.items
+);
+
+const selectReposTotalCount = createSelector(
+  selecReposState,
+  (state) => state.reposRespone?.total_count
 );
 
 const selectReposLoading = createSelector(
@@ -25,4 +30,5 @@ export const reposSelectors = {
   selectReposList,
   selectReposLoading,
   selectReposError,
+  selectReposTotalCount,
 };

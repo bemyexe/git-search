@@ -27,9 +27,15 @@ const selectOrderValue = createSelector(
   (state) => state.order
 );
 
+const selectSortValue = createSelector(
+  selectFilterState,
+  (state) => state.sort
+);
+
 export const filterSelectors = {
   selectSearchValue,
   selectPageValue,
   selectPerPageValue,
   selectOrderValue,
+  selectSortValue,
 };

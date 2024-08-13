@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Data } from '../../../@types';
+import { GitHubRepositoriesResponse } from '../../../@types';
 
 import { getRepos } from './repos.thunk';
 
 export interface ReposState {
-  reposList?: Data[];
+  reposRespone?: GitHubRepositoriesResponse;
   reposLoading: boolean;
   reposError?: undefined | string;
 }
@@ -13,7 +13,7 @@ export interface ReposState {
 const REPOS_SLICE_NAME = 'repos-state';
 
 const INITIAL_REPOS_STATE: ReposState = {
-  reposList: undefined,
+  reposRespone: undefined,
   reposLoading: false,
   reposError: undefined,
 };
@@ -30,7 +30,7 @@ const reposSlice = createSlice({
       })
       .addCase(getRepos.fulfilled, (state, { payload }) => {
         state.reposLoading = false;
-        state.reposList = payload;
+        state.reposRespone = payload;
       })
       .addCase(getRepos.rejected, (state, { payload }) => {
         state.reposLoading = false;
