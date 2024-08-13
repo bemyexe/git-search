@@ -1,24 +1,34 @@
 import { Data } from '../../../../@types';
 import { instance } from '../../instance';
 
+interface QueryRepositoriesParams {
+  query: string;
+  page: number;
+  per_page: number;
+  sort: Sort;
+  order: Order;
+}
+
 const SEARCH_REPOSITOIRES_BASE_URL = 'search/repositories';
 
-export const getRepositories = async (
+export const getRepositories = async ({
   query,
   page,
   per_page,
-  order
-): Promise<Data[]> => {
-  const searchParams: Record<string, any> = new URLSearchParams({
-    page: page,
-    per_page: '' + per_page,
+  sort,
+  order,
+}: QueryRepositoriesParams): Promise<Data> => {
+  const queryParams: Record<string, any> = new URLSearchParams({
+    page: String(page),
+    per_page: String(per_page),
+    sort: sort,
     order: order,
   });
   const response = await instance.get(
     `${SEARCH_REPOSITOIRES_BASE_URL}?q=${query}`,
     {
-      params: searchParams,
+      params: queryParams,
     }
   );
-  return response.data.items;
+  return response.data;
 };
