@@ -9,15 +9,15 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 import { Repository } from '../../../../@types';
-import { formatDate } from '../../../helpers/date-formatter';
-import { useAppDispatch } from '../../../store';
+import { formatDate } from '../../../helpers';
 import {
   setOrderValue,
   setPageValue,
   setPerPageValue,
+  setRepoCardValue,
   setSortValue,
-} from '../../../store/filter/filter.slice';
-import { setRepoCardValue } from '../../../store/repo-card/repo-card.slice';
+  useAppDispatch,
+} from '../../../store';
 
 import { EnhancedTableHead } from './enhanced-table-head';
 

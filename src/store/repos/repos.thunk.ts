@@ -11,7 +11,7 @@ export const getRepos = createAppAsyncThunk(
       const response = await getRepositories(params);
       return response;
     } catch (error: any) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error);
     }
   }
 );

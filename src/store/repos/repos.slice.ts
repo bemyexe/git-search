@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 
 import { GitHubRepositoriesResponse } from '../../../@types';
 
@@ -7,7 +8,7 @@ import { getRepos } from './repos.thunk';
 export interface ReposState {
   reposRespone?: GitHubRepositoriesResponse;
   reposLoading: boolean;
-  reposError?: undefined | string;
+  reposError?: AxiosError<any, any>;
 }
 
 const REPOS_SLICE_NAME = 'repos-state';

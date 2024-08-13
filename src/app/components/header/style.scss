@@ -1,9 +1,11 @@
+$header-height: 80px;
+
 .header {
   display: flex;
   align-items: center;
 
   padding: 19px 32px;
 
-  height: 80px;
+  height: $header-height;
   background-color: var(--blue);
 }

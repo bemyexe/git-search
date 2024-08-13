@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Data } from '../../../@types';
+import { Repository } from '../../../@types';
 
 export interface RepoCardState {
-  repoCard?: Data;
+  repoCard?: Repository;
   isRepoChosen?: boolean;
 }
 

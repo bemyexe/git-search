@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import { Alert, Box, Typography } from '@mui/material';
 
 import { Repository } from '../../../../@types';
-import { useAppDispatch } from '../../../store';
-import { filterSelectors } from '../../../store/filter/filter.selectors';
-import { reposSelectors } from '../../../store/repos/repos.selectors';
-import { getRepos } from '../../../store/repos/repos.thunk';
-import { Page } from '../../components';
-import { RepoCard } from '../../components/shared/repo-card';
-import { EnhancedTable } from '../../components/table';
+import {
+  filterSelectors,
+  getRepos,
+  repoCardSelectors,
+  reposSelectors,
+  useAppDispatch,
+} from '../../../store';
+import { EnhancedTable, Page, RepoCard } from '../../components';
 
 import './style.scss';
 
@@ -17,13 +18,16 @@ export const MainPage = () => {
   const searchValue = useSelector(filterSelectors.selectSearchValue);
   const sort = useSelector(filterSelectors.selectSortValue);
   const order = useSelector(filterSelectors.selectOrderValue);
-  const repos = useSelector(reposSelectors.selectReposList);
-  const reposTotalCount = useSelector(reposSelectors.selectReposTotalCount);
   const page = useSelector(filterSelectors.selectPageValue);
   const perPage = useSelector(filterSelectors.selectPerPageValue);
-  const isLoading = useSelector(reposSelectors.selectReposLoading);
 
+  const repos = useSelector(reposSelectors.selectReposList);
+  const reposTotalCount = useSelector(reposSelectors.selectReposTotalCount);
+  const isLoading = useSelector(reposSelectors.selectReposLoading);
   const isError = useSelector(reposSelectors.selectReposError);
+
+  const repoCard = useSelector(repoCardSelectors.selectRepoCard);
+  const isRepoChosen = useSelector(repoCardSelectors.selectisRepoChosen);
 
   const dispatch = useAppDispatch();
 
@@ -50,7 +54,7 @@ export const MainPage = () => {
               <Typography variant="h3">Результаты поиска</Typography>
               {!!isError && (
                 <Alert variant="filled" severity="error">
-                  {isError}
+                  {isError?.response?.data.message}
                 </Alert>
               )}
               <EnhancedTable
@@ -63,7 +67,10 @@ export const MainPage = () => {
                 isLoading={isLoading}
               />
             </Box>
-            <RepoCard />
+            <RepoCard
+              card={repoCard as Repository}
+              isRepoChosen={isRepoChosen as boolean}
+            />
           </>
         ) : (
           <>

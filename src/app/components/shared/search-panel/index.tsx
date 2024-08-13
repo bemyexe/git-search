@@ -1,8 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
-import { useAppDispatch } from '../../../../store';
-import { setSearchValue } from '../../../../store/filter/filter.slice';
+import { setSearchValue, useAppDispatch } from '../../../../store';
 
 import './style.scss';
 

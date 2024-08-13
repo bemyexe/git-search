@@ -1,15 +1,19 @@
-import { useSelector } from 'react-redux';
 import { Box, Chip, Typography } from '@mui/material';
+import clsx from 'clsx';
 
-import { repoCardSelectors } from '../../../../store/repo-card/repo-card.selectors';
+import { Repository } from '../../../../../@types';
 
 import './style.scss';
 
-export const RepoCard = () => {
-  const card = useSelector(repoCardSelectors.selectRepoCard);
-  const isRepoChosen = useSelector(repoCardSelectors.selectisRepoChosen);
+interface RepoCardProps {
+  card: Repository;
+  isRepoChosen: boolean;
+  className?: string;
+}
+
+export const RepoCard = ({ card, isRepoChosen, className }: RepoCardProps) => {
   return (
-    <Box className="repo-card">
+    <Box className={clsx('repo-card', className)}>
       {isRepoChosen ? (
         <Box className="repo-card-container">
           <Typography variant="h4">Название репозитория</Typography>
