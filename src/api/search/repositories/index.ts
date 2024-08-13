@@ -1,7 +1,7 @@
-import { Data } from '../../../../@types';
+import { GitHubRepositoriesResponse } from '../../../../@types';
 import { instance } from '../../instance';
 
-interface QueryRepositoriesParams {
+export interface QueryRepositoriesParams {
   query: string;
   page: number;
   per_page: number;
@@ -17,7 +17,7 @@ export const getRepositories = async ({
   per_page,
   sort,
   order,
-}: QueryRepositoriesParams): Promise<Data> => {
+}: QueryRepositoriesParams): Promise<GitHubRepositoriesResponse> => {
   const queryParams: Record<string, any> = new URLSearchParams({
     page: String(page),
     per_page: String(per_page),
