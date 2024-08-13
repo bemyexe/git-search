@@ -1,9 +1,15 @@
-export type Repository = Pick<
+export type RepositoryTable = Pick<
   Data,
   'id' | 'name' | 'updated_at' | 'forks_count' | 'language' | 'stargazers_count'
 >;
 
-export interface Data {
+export interface GitHubRepositoriesResponse {
+  total_count: number;
+  incomplete_results: boolean;
+  items: Repository[];
+}
+
+export interface Repository {
   id: number;
   node_id: string;
   name: string;
