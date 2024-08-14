@@ -1,8 +1,10 @@
+// тип для заголовков
 export type RepositoryTable = Pick<
   Data,
   'id' | 'name' | 'updated_at' | 'forks_count' | 'language' | 'stargazers_count'
 >;
 
+// респонс от API
 export interface GitHubRepositoriesResponse {
   total_count: number;
   incomplete_results: boolean;
