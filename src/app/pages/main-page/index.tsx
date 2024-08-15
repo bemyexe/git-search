@@ -10,7 +10,7 @@ import {
   reposSelectors,
   useAppDispatch,
 } from '../../../store';
-import { EnhancedTable, Page, RepoCard } from '../../components';
+import { EnhancedTable, Page, RepoCardStatus } from '../../components';
 
 import './style.scss';
 
@@ -26,7 +26,6 @@ export const MainPage = () => {
   const isLoading = useSelector(reposSelectors.selectReposLoading);
   const isError = useSelector(reposSelectors.selectReposError);
 
-  const repoCard = useSelector(repoCardSelectors.selectRepoCard);
   const isRepoChosen = useSelector(repoCardSelectors.selectisRepoChosen);
 
   const dispatch = useAppDispatch();
@@ -67,10 +66,7 @@ export const MainPage = () => {
                 isLoading={isLoading}
               />
             </Box>
-            <RepoCard
-              card={repoCard as Repository}
-              isRepoChosen={isRepoChosen as boolean}
-            />
+            <RepoCardStatus isRepoChosen={isRepoChosen as boolean} />
           </>
         ) : (
           <>
